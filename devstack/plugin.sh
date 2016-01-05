@@ -2,7 +2,7 @@
 
 function configure_internal_tenant {
     # If either id is empty we will create a new project/username for the internal tenant
-    if [[ -z CINDER_INTERNAL_TENANT_PROJECT_ID || -z CINDER_INTERNAL_TENANT_USER_ID ]]; then
+    if [[ -z $CINDER_INTERNAL_TENANT_PROJECT_ID || -z $CINDER_INTERNAL_TENANT_USER_ID ]]; then
         export CINDER_INTERNAL_TENANT_PROJECT_ID=$(get_or_create_project "$CINDER_INTERNAL_TENANT_PROJECTNAME" default)
         export CINDER_INTERNAL_TENANT_USER_ID=$(get_or_create_user "$CINDER_INTERNAL_TENANT_USERNAME" "$CINDER_INTERNAL_TENANT_PASSWORD" default)
         local admin_role
@@ -21,14 +21,14 @@ function configure_cache {
     for be in ${CINDER_CACHE_ENABLED_FOR_BACKENDS//,/ }; do
         be_name=${be##*:}
 
-        iniset $CINDER_CONF be_name image_volume_cache_enabled $CINDER_IMG_CACHE_ENABLED
+        iniset $CINDER_CONF $be_name image_volume_cache_enabled $CINDER_IMG_CACHE_ENABLED
 
-        if [[ -n CINDER_IMG_CACHE_SIZE_GB ]]; then
-            iniset $CINDER_CONF be_name image_volume_cache_max_size_gb $CINDER_IMG_CACHE_SIZE_GB
+        if [[ -n $CINDER_IMG_CACHE_SIZE_GB ]]; then
+            iniset $CINDER_CONF $be_name image_volume_cache_max_size_gb $CINDER_IMG_CACHE_SIZE_GB
         fi
 
-        if [[ -n CINDER_IMG_CACHE_SIZE_GB ]]; then
-            iniset $CINDER_CONF be_name image_volume_cache_max_count $CINDER_IMG_CACHE_SIZE_COUNT
+        if [[ -n $CINDER_IMG_CACHE_SIZE_GB ]]; then
+            iniset $CINDER_CONF $be_name image_volume_cache_max_count $CINDER_IMG_CACHE_SIZE_COUNT
         fi
     done
 }
