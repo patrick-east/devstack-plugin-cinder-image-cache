@@ -1,0 +1,21 @@
+# Environment variables to configure the cache
+export CINDER_IMG_CACHE_ENABLED=${CINDER_IMG_CACHE_ENABLED:-True}
+
+# For sizes limits if left unset it will use cinder defaults of 0 for unlimited
+export CINDER_IMG_CACHE_SIZE_GB=${CINDER_IMG_CACHE_SIZE_GB:-}
+export CINDER_IMG_CACHE_SIZE_COUNT=${CINDER_IMG_CACHE_SIZE_COUNT:-}
+
+# Variables to configure the Cinder internal tenant, if either id's are left empty
+# they will be automatically created.
+export CINDER_INTERNAL_TENANT_PROJECT_ID=${CINDER_INTERNAL_TENANT_PROJECT_ID:-}
+export CINDER_INTERNAL_TENANT_USER_ID=${CINDER_INTERNAL_TENANT_USER_ID:-}
+
+export CINDER_INTERNAL_TENANT_PROJECTNAME=${CINDER_INTERNAL_TENANT_PROJECTNAME:-'cinder-internal-tenant'}
+export CINDER_INTERNAL_TENANT_USERNAME=${CINDER_INTERNAL_TENANT_USERNAME:-'cinder-internal-tenant'}
+export CINDER_INTERNAL_TENANT_PASSWORD=${CINDER_INTERNAL_TENANT_PASSWORD:-'changeme'}
+
+
+# Configure which cinder backends will have the cache, this takes the same
+# form as the CINDER_ENABLED_BACKENDS config option. By default it will
+# enable
+export CINDER_CACHE_ENABLED_FOR_BACKENDS=${CINDER_CACHE_ENABLED_FOR_BACKENDS:-CINDER_ENABLED_BACKENDS}
